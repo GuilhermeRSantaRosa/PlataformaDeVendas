@@ -1,0 +1,93 @@
+unit Produto;
+
+interface
+
+uses FdQuery, System.SysUtils,uDataBase;
+
+type
+
+  TProduto = class(TDatabaseObject)
+    private
+      FVenda: Currency;
+      FDescricao: String;
+      FId: Integer;
+      FNome: String;
+      FCusto: Currency;
+    FQUery: TFdQuerySqlite;
+    function GetQuery: TFdQuerySqlite;
+    public
+      destructor destroy;override;
+      function InsertCommand : WideString;override;
+      function UpdateCommand : WideString;override;
+      function DeleteCommand : WideString;override;
+      function GetNextId: Integer;override;
+      property Id:Integer read FId write FId;
+      property Nome:String read FNome write FNome;
+      property Descricao:String read FDescricao write FDescricao;
+      property Custo:Currency read FCusto write FCusto;
+      property Venda:Currency read FVenda write FVenda;
+      property Query : TFdQuerySqlite read GetQuery write FQUery;
+      function Load(AId:Integer) : Boolean;override;
+  end;
+
+implementation
+
+{ TProduto }
+
+function TProduto.DeleteCommand: WideString;
+begin
+  Result := Format('Delete From Produtos Where Id=%d',[Self.Id]);
+end;
+
+destructor TProduto.destroy;
+begin
+  if Assigned(FQuery) then
+    FreeAndNil(FQuery);
+  inherited;
+end;
+
+function TProduto.GetNextId: Integer;
+begin
+  Result := 1;
+  if (Query.OpenSQLQuery('Select Max(Id) as Id From Produtos')) then
+    Result := Query.FieldInteger('Id') + 1;
+end;
+
+function TProduto.GetQuery: TFdQuerySqlite;
+begin
+  if (not Assigned(FQuery)) then
+    FQuery := TFdQuerySqlite.Create;
+  Result := FQUery;
+end;
+
+function TProduto.InsertCommand: WideString;
+begin
+  Self.Id := GetNextId;
+  Result := Format('Insert Into Produtos (Id,Nome,Descricao,Custo,Venda) (%d,%s,%s,%%s,%s)',
+            [Self.Id,QuotedStr(Self.Nome),QuotedStr(Self.Descricao),
+            QuotedStr(FormatFloat('#,##0.00',Self.Custo)),QuotedStr(FormatFloat('#,##0.00',Self.Venda))]);
+end;
+
+function TProduto.Load(AId: Integer): Boolean;
+begin
+  Result := False;
+  if (Query.OpenSQLQuery(Format('Select * From Produtos Where Id=%d',[AId]))) then
+  begin
+    Self.Nome := Query.FieldString('Nome');
+    Self.Descricao := Query.FieldString('Descricao');
+    Self.Custo := Query.FieldCurrency('Custo');
+    Self.Venda := Query.FieldCurrency('Venda');
+  end;
+end;
+
+
+function TProduto.UpdateCommand: WideString;
+begin
+  Result := Format('Update Produtos Set Nome=%s,Descricao=%s,Custo=%s,Venda=%s Where Id=%d',
+            [QuotedStr(Self.Nome),QuotedStr(Self.Descricao),
+            QuotedStr(FormatFloat('#,##0.00',Self.Custo)),
+            QuotedStr(FormatFloat('#,##0.00',Self.Venda)),
+            Self.Id ]);
+end;
+
+end.

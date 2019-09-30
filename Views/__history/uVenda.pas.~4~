@@ -1,0 +1,36 @@
+unit uVenda;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Data.DB,
+  Datasnap.DBClient, Vcl.Grids, Vcl.DBGrids;
+
+type
+  TFrmVenda = class(TForm)
+    pnTop: TPanel;
+    Label1: TLabel;
+    pnNovoProduto: TPanel;
+    DBGrid1: TDBGrid;
+    cdsProdutos: TClientDataSet;
+    DataSource1: TDataSource;
+    cdsProdutosIdProduto: TIntegerField;
+    cdsProdutosNome: TStringField;
+    cdsProdutosDescricao: TStringField;
+    cdsProdutosCusto: TCurrencyField;
+    cdsProdutosVenda: TCurrencyField;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmVenda: TFrmVenda;
+
+implementation
+
+{$R *.dfm}
+
+end.

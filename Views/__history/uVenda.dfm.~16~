@@ -1,0 +1,294 @@
+object FrmVenda: TFrmVenda
+  Left = 0
+  Top = 0
+  Caption = 'Venda'
+  ClientHeight = 485
+  ClientWidth = 826
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  FormStyle = fsMDIChild
+  OldCreateOrder = False
+  Visible = True
+  WindowState = wsMaximized
+  OnClose = FormClose
+  OnResize = FormResize
+  PixelsPerInch = 96
+  TextHeight = 13
+  object pnTop: TPanel
+    Left = 0
+    Top = 0
+    Width = 826
+    Height = 41
+    Align = alTop
+    Alignment = taLeftJustify
+    BevelOuter = bvNone
+    Color = 11628805
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -20
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentBackground = False
+    ParentFont = False
+    TabOrder = 0
+    ExplicitLeft = 216
+    ExplicitTop = 56
+    ExplicitWidth = 185
+    object Label1: TLabel
+      AlignWithMargins = True
+      Left = 3
+      Top = 3
+      Width = 63
+      Height = 35
+      Align = alLeft
+      Caption = 'Vendas'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = -20
+      Font.Name = 'Trebuchet MS'
+      Font.Style = []
+      ParentFont = False
+      Layout = tlCenter
+      ExplicitHeight = 26
+    end
+  end
+  object pnListaProdutos: TPanel
+    Left = 0
+    Top = 41
+    Width = 826
+    Height = 200
+    Align = alTop
+    TabOrder = 1
+    object DBGrid1: TDBGrid
+      Left = 1
+      Top = 1
+      Width = 824
+      Height = 198
+      Align = alClient
+      DataSource = DataSource1
+      DrawingStyle = gdsGradient
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Trebuchet MS'
+      Font.Style = []
+      Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+      ParentFont = False
+      ParentShowHint = False
+      ShowHint = False
+      TabOrder = 0
+      TitleFont.Charset = DEFAULT_CHARSET
+      TitleFont.Color = clBlack
+      TitleFont.Height = -11
+      TitleFont.Name = 'Trebuchet MS'
+      TitleFont.Style = []
+      Columns = <
+        item
+          Color = clWhite
+          Expanded = False
+          FieldName = 'IdProduto'
+          Title.Caption = 'Id'
+          Title.Color = 11628805
+          Title.Font.Charset = DEFAULT_CHARSET
+          Title.Font.Color = clBlack
+          Title.Font.Height = -11
+          Title.Font.Name = 'Tahoma'
+          Title.Font.Style = []
+          Width = 50
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'Nome'
+          Title.Color = clBlack
+          Width = 300
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'Descricao'
+          Width = 350
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'Venda'
+          Width = 80
+          Visible = True
+        end>
+    end
+  end
+  object pnBottom: TPanel
+    Left = 0
+    Top = 416
+    Width = 826
+    Height = 69
+    Align = alBottom
+    TabOrder = 2
+    ExplicitLeft = -1
+    object SpeedButton1: TSpeedButton
+      Left = 1
+      Top = 1
+      Width = 60
+      Height = 67
+      Align = alLeft
+      Caption = 'Sair'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Trebuchet MS'
+      Font.Style = [fsBold]
+      Glyph.Data = {
+        F6060000424DF606000000000000360000002800000018000000180000000100
+        180000000000C0060000C30E0000C30E00000000000000000000FFFFFFFFFFFF
+        FFFFFFDEDBD3C5BEB0C5BEB0C5BEB0C5BEB0C5BEB0C5BEB0C5BEB0C5BEB0C5BE
+        B0C5BEB0C5BEB0C5BEB0C5BEB0C5BEB0C5BEB0C5BEB0C5BEB0C5BEB0C5BEB0DF
+        DBD4FFFFFFFFFFFFFFFFFFC4BFB0D2CDC3E1DED7E2DED7E1DED7E1DED7E2DED7
+        E1DED7E2DED7E1DED7E1DED7E1DED7E1DED7E1DDD8E0DDD8E0DDD9E0DDD9E1DD
+        D8E1DED7D2CDC3C5BEB0FFFFFFFFFFFFFFFFFFC5BEB0E1DED7FFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFE1DDD8C4BDAFFFFFFFFFFFFFFFFFFFC5BEB0E1DE
+        D7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFCCCCF79A9AEF9A9AEF9A9AEF9A9AEFFFFFFFE0DCD9C5BEB0FFFFFFFFFFFF
+        FFFFFFC5BDAFE4E1DDFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFCCCCF69999EECCCCF7B2B2F29999EEFFFFFFDFDCDAC4
+        BDAFFFFFFFFFFFFFFFFFFFE5E4EBFEFEFEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFCCCCF69999EEFFFFFFCCCCF69999
+        EEFFFFFFDFDCDAC4BDAFFFFFFFFFFFFFFFFFFFF8F9FE9197F5404DF3414DF38C
+        93F8F8F9FEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFCCCCF79A9AEF
+        FFFFFFCCCCF79A9AEFFFFFFFDFDCDBC5BEB0FFFFFFFFFFFFF8F9FE7078F63844
+        F38189F78189F73845F38C93F8FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFCCCCF69999EEFFFFFFCCCCF69999EEFFFFFFDFDCDAC4BDAFFFFFFFF8F9FE
+        717AF63744F3AFB4FAFFFFFFFFFFFF8189F7414DF3FFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFCCCCF69999EEFFFFFFCCCCF69999EEFFFFFFDFDCDAC4
+        BDAFF7F8FE6F78F63744F3B0B5FAFFFFFFFFFFFFFFFFFF8189F73643F43542F3
+        3542F33542F3424EF48C94F8F8F9FEFFFFFFCBCBF79A9AEFFFFFFFCCCCF79A9A
+        EFFFFFFFDFDCDBC5BEB08B92F83844F3AFB4FAFFFFFFFFFFFFFFFFFFEFF0FE9D
+        A3F99AA0F99AA0F99AA0F99AA0F98189F73844F38C94F8FFFFFFC9C9F79999EE
+        FFFFFFCCCCF69999EEFFFFFFDFDCDAC4BDAF404DF38189F7FFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8189F7414DF3FF
+        FFFFC7C8F79A9AEFFFFFFFCCCCF79A9AEFFFFFFFDFDCDBC5BEB0404DF38189F7
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FF8189F7414DF3FFFFFFC7C8F79999EEFFFFFFCCCCF69999EEFFFFFFDFDCDAC4
+        BDAF8A92F83844F3B0B5FAFFFFFFFFFFFFFFFFFFEFF0FE9CA3F99AA0F99AA1F9
+        9AA0F99AA0F98189F73844F38C93F8FFFFFFC9C9F79999EEFFFFFFCCCCF69999
+        EEFFFFFFDFDCDAC4BDAFF7F8FE6F79F73744F3B2B7FAFFFFFFFFFFFFFFFFFF81
+        89F83542F33643F43542F33643F4404DF38B92F8F8F9FEFFFFFFCBCBF69999EE
+        FFFFFFCCCCF69999EEFFFFFFDFDCDAC4BDAFFFFFFFF8F9FE707AF73745F4B0B5
+        FAFFFFFFFFFFFF8189F8424DF3FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFCCCCF79A9AEFFFFFFFCCCCF79A9AEFFFFFFFDFDCDBC5BEB0FFFFFFFFFFFF
+        F8F9FE6F79F73844F38189F78189F73844F38C93F8FFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFCCCCF69999EEFFFFFFCCCCF69999EEFFFFFFDFDCDAC4
+        BDAFFFFFFFFFFFFFFFFFFFF8F8FE8E95F6404DF3404DF38B92F8F7F8FEFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFCCCCF69999EEFFFFFFCCCCF69999
+        EEFFFFFFDFDCDAC4BDAFFFFFFFFFFFFFFFFFFFE2E2ECFEFEFEFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFCCCCF79A9AEF
+        FFFFFFCCCCF79A9AEFFFFFFFDFDCDBC5BEB0FFFFFFFFFFFFFFFFFFC4BEB0E2DF
+        DDFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFCCCCF69999EECCCCF7B2B2F29999EEFFFFFFDFDCDAC4BDAFFFFFFFFFFFFF
+        FFFFFFC5BEB0E1DED7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFCCCCF69999EE9A9AEF9999EE9999EEFFFFFFDFDCDAC4
+        BDAFFFFFFFFFFFFFFFFFFFC5BEB0E1DED7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFE0DDD8C5BEB0FFFFFFFFFFFFFFFFFFC5BEB0D2CDC3E1DED7E2DED7E1
+        DED7E1DED7E2DED7E1DED7E2DED7E1DED7E1DED7E1DED7E1DED8E0DDD9DFDCDA
+        DFDCDBDFDCDADFDCDAE0DDD8D2CDC3C5BEB0FFFFFFFFFFFFFFFFFFDFDBD3C5BE
+        B0C4BDAFC5BEB0C4BDAFC4BDAFC5BEB0C4BDAFC5BEB0C4BDAFC4BDAFC4BDAFC5
+        BEB0C4BDAFC4BDAFC5BEB0C4BDAFC4BDAFC5BEB0C5BEB0DEDBD2}
+      Layout = blGlyphTop
+      ParentFont = False
+    end
+    object pnTotais: TPanel
+      Left = 536
+      Top = 1
+      Width = 289
+      Height = 67
+      Align = alRight
+      TabOrder = 0
+      object Label2: TLabel
+        AlignWithMargins = True
+        Left = 47
+        Top = 4
+        Width = 211
+        Height = 59
+        Margins.Right = 30
+        Align = alRight
+        Alignment = taRightJustify
+        Caption = 'Total: R$ 150,50'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clGreen
+        Font.Height = -27
+        Font.Name = 'Trebuchet MS'
+        Font.Style = [fsBold]
+        ParentFont = False
+        Layout = tlCenter
+        ExplicitHeight = 35
+      end
+    end
+  end
+  object cdsProdutos: TClientDataSet
+    PersistDataPacket.Data = {
+      A70000009619E0BD010000001800000005000000000003000000A70009496450
+      726F6475746F0400010000000000044E6F6D6501004900000001000557494454
+      480200020032000944657363726963616F010049000000010005574944544802
+      000200C80005437573746F080004000000010007535542545950450200490006
+      004D6F6E6579000556656E646108000400000001000753554254595045020049
+      0006004D6F6E6579000000}
+    Active = True
+    Aggregates = <>
+    FieldDefs = <
+      item
+        Name = 'IdProduto'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Nome'
+        DataType = ftString
+        Size = 50
+      end
+      item
+        Name = 'Descricao'
+        DataType = ftString
+        Size = 200
+      end
+      item
+        Name = 'Custo'
+        DataType = ftCurrency
+      end
+      item
+        Name = 'Venda'
+        DataType = ftCurrency
+      end>
+    IndexDefs = <>
+    Params = <>
+    StoreDefs = True
+    Left = 416
+    Top = 153
+    object cdsProdutosIdProduto: TIntegerField
+      FieldName = 'IdProduto'
+    end
+    object cdsProdutosNome: TStringField
+      FieldName = 'Nome'
+      Size = 50
+    end
+    object cdsProdutosDescricao: TStringField
+      FieldName = 'Descricao'
+      Size = 200
+    end
+    object cdsProdutosCusto: TCurrencyField
+      FieldName = 'Custo'
+    end
+    object cdsProdutosVenda: TCurrencyField
+      FieldName = 'Venda'
+    end
+  end
+  object DataSource1: TDataSource
+    DataSet = cdsProdutos
+    Left = 296
+    Top = 169
+  end
+end

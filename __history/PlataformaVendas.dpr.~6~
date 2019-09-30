@@ -1,0 +1,18 @@
+program PlataformaVendas;
+
+uses
+  Vcl.Forms,
+  uPrincipal in 'uPrincipal.pas' {FrmPrincipal},
+  uVenda in 'Views\uVenda.pas' {FrmVenda},
+  uCadastroProduto in 'Views\uCadastroProduto.pas' {FrmCadastroProdutos},
+  Connection in 'Classes\Connection.pas',
+  FdQuery in 'Classes\FdQuery.pas';
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TFrmPrincipal, FrmPrincipal);
+  Application.Run;
+end.

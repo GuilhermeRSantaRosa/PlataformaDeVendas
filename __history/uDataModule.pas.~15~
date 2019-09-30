@@ -1,0 +1,49 @@
+unit uDataModule;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
+  FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.SQLite,
+  FireDAC.Phys.SQLiteDef, FireDAC.Stan.ExprFuncs, FireDAC.VCLUI.Wait, Data.DB,
+  FireDAC.Comp.Client;
+
+type
+  TdmPrincipal = class(TDataModule)
+    fdConn: TFDConnection;
+    FDPhysSQLiteDriverLink1: TFDPhysSQLiteDriverLink;
+    procedure fdConnBeforeConnect(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  dmPrincipal: TdmPrincipal;
+
+implementation
+
+uses
+  Vcl.Forms;
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+{$R *.dfm}
+
+procedure TdmPrincipal.fdConnBeforeConnect(Sender: TObject);
+var Path1,Path2 : String;
+begin
+  Path1 := ExtractFileDir(Application.ExeName);
+  Path2 := Copy(Path1,1,LastDelimiter('\',Path1)-1);
+  Path1 := Copy(Path2,1,LastDelimiter('\',Path2)-1);
+  try
+    fdConn.Params.Database := Path1+'\BancoDados\PlataFormaVendas.sqlite';
+    fdConn.Connected := True;
+  except
+
+  end;
+end;
+
+end.

@@ -1,0 +1,57 @@
+unit uVenda;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Data.DB,
+  Datasnap.DBClient, Vcl.Grids, Vcl.DBGrids;
+
+type
+  TFrmVenda = class(TForm)
+    pnTop: TPanel;
+    Label1: TLabel;
+    pnNovoProduto: TPanel;
+    DBGrid1: TDBGrid;
+    cdsProdutos: TClientDataSet;
+    DataSource1: TDataSource;
+    cdsProdutosIdProduto: TIntegerField;
+    cdsProdutosNome: TStringField;
+    cdsProdutosDescricao: TStringField;
+    cdsProdutosCusto: TCurrencyField;
+    cdsProdutosVenda: TCurrencyField;
+    procedure FormResize(Sender: TObject);
+  private
+    { Private declarations }
+    procedure RecalculaGridProdutos;
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmVenda: TFrmVenda;
+
+implementation
+
+{$R *.dfm}
+
+{ TFrmVenda }
+
+procedure TFrmVenda.FormResize(Sender: TObject);
+begin
+  RecalculaGridProdutos;
+end;
+
+procedure TFrmVenda.RecalculaGridProdutos;
+var vWidth : Integer;
+begin
+  vWidth := vWidth;
+
+  DBGrid1.Columns[0].Width := 5/100 * vWidth;
+  DBGrid1.Columns[1].Width := 30/100 * vWidth;
+  DbGrid1.Columns[2].Width := 50/100 * vWidth;
+  DBGrid1.Columns[3].Width := 10/100 * vWidth;
+
+end;
+
+end.

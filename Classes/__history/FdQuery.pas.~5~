@@ -1,0 +1,130 @@
+unit FdQuery;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, System.Json,
+    Datasnap.DSServer, Datasnap.DSAuth, FireDAC.Stan.Intf,
+  FireDAC.Stan.Option, FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf,
+  FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys,
+  FireDAC.Phys.FB, FireDAC.Phys.FBDef, FireDAC.FMXUI.Wait, FireDAC.Stan.Param,
+  FireDAC.DatS, FireDAC.DApt.Intf, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client, Connection ;
+
+type
+  TFdQueryFirebird = class
+  private
+    FFdQuery: TFDQuery;
+    FFdConnection : TConnectionDatabase;
+    FFields: TFields;
+    function GetFdQuery: TFDQuery;
+  public
+    constructor Create;
+    property FdQuery : TFDQuery read GetFdQuery Write FFdQuery;
+    function OpenSQLQuery(SQLText:WideString):Boolean;
+    function Bof:Boolean;
+    function eof:Boolean;
+    procedure Next;
+    procedure First;
+    procedure ExecuteDirect(const TextSQL:WideString);
+    function FieldByName(const FieldName:String):TField;
+    function ParamByName(const ParamName:String):TParam;
+    function FieldString(const FieldName:String):String;
+    function FieldInteger(const FieldName:String):Integer;
+    function FieldBoolean(const FieldName:String):Boolean;
+    function FieldDateTime(const FieldName:String):TDateTime;
+    function FieldCurrency(const FieldName:String):Currency;
+    property Fields: TFields read FFields;
+  end;
+
+implementation
+
+{ TFdQuery }
+
+function TFdQueryFirebird.Bof: Boolean;
+begin
+  Result := FFdQuery.Bof;
+end;
+
+constructor TFdQueryFirebird.Create;
+begin
+  FdQuery.Connection := TConnectionDatabase.SqlConnection;
+end;
+
+function TFdQueryFirebird.eof: Boolean;
+begin
+  Result := FFdQuery.Eof;
+end;
+
+procedure TFdQueryFirebird.ExecuteDirect(const TextSQL: WideString);
+begin
+  FdQuery.SQL.Clear;
+  FdQuery.SQL.Add(TextSql);
+    try
+      FdQuery.ExecSQL;
+    except on e:Exception do
+       raise Exception.Create(e.message);
+    end;
+end;
+
+function TFdQueryFirebird.FieldBoolean(const FieldName: String): Boolean;
+begin
+   Result := FFdQuery.FieldByName(FieldName).AsInteger=1;
+end;
+
+function TFdQueryFirebird.FieldByName(const FieldName: String): TField;
+begin
+   Result := FFdQuery.FieldByName(FieldName);
+end;
+
+function TFdQueryFirebird.FieldCurrency(const FieldName: String): Currency;
+begin
+   Result := FFdQuery.FieldByName(FieldName).AsCurrency;
+end;
+
+function TFdQueryFirebird.FieldDateTime(const FieldName: String): TDateTime;
+begin
+   Result := FFdQuery.FieldByName(FieldName).AsDateTime;
+end;
+
+function TFdQueryFirebird.FieldInteger(const FieldName: String): Integer;
+begin
+  Result := FFdQuery.FieldByName(FieldName).AsInteger;
+end;
+
+function TFdQueryFirebird.FieldString(const FieldName: String): String;
+begin
+  Result := FFdQuery.FieldByName(FieldName).AsString;
+end;
+
+procedure TFdQueryFirebird.First;
+begin
+  FdQuery.First;
+end;
+
+function TFdQueryFirebird.GetFdQuery: TFDQuery;
+begin
+  if (not Assigned(FFdQuery)) then
+    FFdQuery := TFdQuery.Create(nil);
+  Result := FFdQuery;
+end;
+
+procedure TFdQueryFirebird.Next;
+begin
+  FdQuery.Next;
+end;
+
+function TFdQueryFirebird.OpenSQLQuery(SQLText: WideString): Boolean;
+begin
+  FdQuery.SQL.Text := SQLText;
+  FdQuery.Open;
+  Result := not (FdQuery.Bof And FdQuery.Eof);
+  FdQuery.First;
+end;
+
+function TFdQueryFirebird.ParamByName(const ParamName: String): TParam;
+begin
+
+end;
+
+end.

@@ -1,0 +1,70 @@
+unit uDatabase;
+
+interface
+
+uses
+  FdQuery;
+
+type
+  TTipoComando = (tcNone,tcInsert,tcUpdate,tcDelete);
+  TDatabaseObject = class
+  private
+    FComando: TTipoComando;
+    FQUery: TFdQuerySqlite;
+    function GetQuery: TFdQuerySqlite;
+  protected
+    function Load(AId:Integer):Boolean;virtual;abstract;
+
+    function InsertCommand : WideString;virtual;abstract;
+    function UpdateCommand : WideString;virtual;abstract;
+
+    function GetNextId: Integer;virtual;abstract;
+    function GetCommand: WideString;
+    destructor destroy;override;
+  public
+    property Comando : TTipoComando read FComando write FComando default tcNone;
+    property Query : TFdQuerySqlite read GetQuery write FQUery;
+    procedure Persist;virtual;
+  end;
+
+implementation
+
+uses
+  System.SysUtils;
+
+{ TDatabase }
+
+
+{ TDatabase }
+
+destructor TDatabaseObject.destroy;
+begin
+  if Assigned(FQuery) then
+    FreeAndNil(FQuery);
+  inherited;
+end;
+
+function TDatabaseObject.GetCommand: WideString;
+begin
+  case Comando of
+    tcInsert : Result := InsertCommand;
+    tcUpdate : Result := UpdateCommand;
+    tcDelete : Result := DeleteCommand;
+  end;
+end;
+
+
+function TDatabaseObject.GetQuery: TFdQuerySqlite;
+begin
+  if (not Assigned(FQuery)) then
+    FQuery := TFdQuerySqlite.Create;
+  Result := FQUery;
+end;
+
+procedure TDatabaseObject.Persist;
+begin
+  if (Self.Comando<>tcNone) then
+    Query.ExecuteDirect(GetCommand);
+end;
+
+end.

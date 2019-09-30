@@ -1,0 +1,126 @@
+unit vwConfiguracao;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls,
+  uConfiguracao, Vcl.Buttons, uDatabase;
+
+type
+  TFrmConfiguracao = class(TForm)
+    pnTop: TPanel;
+    Label1: TLabel;
+    edDespesasTotais: TEdit;
+    Label2: TLabel;
+    Label3: TLabel;
+    edMargemLucro: TEdit;
+    btnSalvar: TSpeedButton;
+    procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure edDespesasTotaisKeyPress(Sender: TObject; var Key: Char);
+    procedure edMargemLucroKeyPress(Sender: TObject; var Key: Char);
+    procedure edDespesasTotaisExit(Sender: TObject);
+    procedure edMargemLucroExit(Sender: TObject);
+    procedure btnSalvarClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+  private
+    First : Boolean;
+    { Private declarations }
+    FConfig : TConfiguracao;
+    procedure Salvar;
+    procedure SetValues;
+  public
+    { Public declarations }
+
+  end;
+
+var
+  FrmConfiguracao: TFrmConfiguracao;
+
+implementation
+
+{$R *.dfm}
+
+procedure TFrmConfiguracao.btnSalvarClick(Sender: TObject);
+begin
+  Salvar;
+end;
+
+procedure TFrmConfiguracao.edDespesasTotaisExit(Sender: TObject);
+begin
+  if (edDespesasTotais.Text<>'') then
+    edDespesasTotais.Text := FormatFloat('#,##0.00',StrToCurr(edDespesasTotais.Text))
+  else
+    edDespesasTotais.Text := FormatFloat('#,##0.00',0)
+end;
+
+procedure TFrmConfiguracao.edDespesasTotaisKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  if not (Key in ['0'..'9',#13,#44,#8]) then
+  begin
+     Key := #0;
+  end
+end;
+
+procedure TFrmConfiguracao.edMargemLucroExit(Sender: TObject);
+begin
+  if (edMargemLucro.Text<>'') then
+    edMargemLucro.Text := FormatFloat('#,##0.00',StrToCurr(edMargemLucro.Text))
+  else
+    edMargemLucro.Text := FormatFloat('#,##0.00',0)
+end;
+
+procedure TFrmConfiguracao.edMargemLucroKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  if not (Key in ['0'..'9',#13,#44,#8]) then
+  begin
+     Key := #0;
+  end
+end;
+
+procedure TFrmConfiguracao.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  if First then
+    Salvar;
+end;
+
+procedure TFrmConfiguracao.FormCreate(Sender: TObject);
+begin
+  Self.Left:=Trunc((Screen.Width-Width)  / 2);
+  Self.Top:=Trunc((Screen.Height-Height) / 2);
+  FConfig := TConfiguracao.Create;
+  First := not FConfig.Load;
+  edDespesasTotais.Text := FormatFloat('#,##0.00',FConfig.DespesasTotais);
+  edMargemLucro.Text := FormatFloat('#,##0.00',FConfig.MargemLucro);
+end;
+
+procedure TFrmConfiguracao.FormDestroy(Sender: TObject);
+begin
+  FreeAndNil(FConfig);
+end;
+
+procedure TFrmConfiguracao.Salvar;
+begin
+  SetValues;
+  if First then
+    FConfig.Comando := tcInsert
+  else
+    FConfig.Comando := tcUpdate;
+  try
+    FConfig.Persist;
+  except
+    ShowMessage('Ocorreu um erro ao salvar as configurações');
+  end;
+  FreeAndNil(FrmConfiguracao);
+end;
+
+procedure TFrmConfiguracao.SetValues;
+begin
+  FConfig.DespesasTotais  := StrToCurr(StringReplace(edDespesasTotais.Text,'.','',[rfReplaceAll]));
+  FConfig.MargemLucro  := StrToCurr(StringReplace(edMargemLucro.Text,'.','',[rfReplaceAll]));
+end;
+
+end.

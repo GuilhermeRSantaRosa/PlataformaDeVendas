@@ -1,0 +1,61 @@
+unit Connection;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, System.Json,
+    Datasnap.DSServer, Datasnap.DSAuth, FireDAC.Stan.Intf,
+  FireDAC.Stan.Option, FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf,
+  FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys,
+  FireDAC.Phys.FB, FireDAC.Phys.FBDef, FireDAC.FMXUI.Wait, FireDAC.Stan.Param,
+  FireDAC.DatS, FireDAC.DApt.Intf, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client;
+
+type
+  TConnectionDatabase = class
+    class var FConn : TFDConnection;
+    class function SqlConnection : TFDConnection;
+    class function TestaConexao : Boolean;
+  private
+
+  public
+  end;
+
+implementation
+
+{ TConnection }
+class function TConnectionDatabase.SqlConnection: TFDConnection;
+begin
+  if (not Assigned(FConn)) then
+  begin
+    FConn := TFDConnection.Create(nil);
+    with FConn do
+    begin
+      Params.Clear;
+      Params.Database := 'C:\Projetos\TesteDesenvolvedorDelphi\BancoDados\PlataFormaVendas.sqlite';
+      Params.DriverID := 'SQLite';
+      Connected := True;
+    end;
+  end;
+  result := FConn;
+end;
+class function TConnectionDatabase.TestaConexao: Boolean;
+var FConnection : TFDConnection;
+begin
+  Result := False;
+  try
+    FConnection := TFDConnection.Create(nil);
+    with FConnection do
+    begin
+      Params.Clear;
+      Params.Database := 'C:\Projetos\TesteDesenvolvedorDelphi\BancoDados\PlataFormaVendas.sqlite';
+      Params.DriverID := 'SQLite';
+      Connected := True;
+    end;
+    Result := True;
+  except
+    Result := False;
+  end;
+end;
+
+end.

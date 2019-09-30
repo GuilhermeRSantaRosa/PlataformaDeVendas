@@ -1,0 +1,255 @@
+unit uCadastroProduto;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.StdCtrls, Vcl.Buttons,
+  Vcl.ExtCtrls, Vcl.Grids, Vcl.DBGrids, Datasnap.DBClient, Vcl.Mask,uProduto,
+  FdQuery, uDatabase;
+
+type
+  TFrmCadastroProdutos = class(TForm)
+    pnTop: TPanel;
+    Label1: TLabel;
+    DataSource1: TDataSource;
+    cdsProdutos: TClientDataSet;
+    cdsProdutosId: TIntegerField;
+    cdsProdutosNome: TStringField;
+    cdsProdutosDescricao: TStringField;
+    cdsProdutosCusto: TCurrencyField;
+    cdsProdutosVenda: TCurrencyField;
+    nbPrincipal: TNotebook;
+    pnAcoes: TPanel;
+    btnEditar: TSpeedButton;
+    btnExcluir: TSpeedButton;
+    btnNovo: TSpeedButton;
+    pnFiltro: TPanel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Edit1: TEdit;
+    cmbBusca: TComboBox;
+    DBGrid1: TDBGrid;
+    edId: TEdit;
+    edNome: TEdit;
+    edCusto: TEdit;
+    Label4: TLabel;
+    Nome: TLabel;
+    Label5: TLabel;
+    edVenda: TEdit;
+    Label6: TLabel;
+    mmDescricao: TMemo;
+    label120: TLabel;
+    btnSalvar: TSpeedButton;
+    btnCancelar: TSpeedButton;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormCreate(Sender: TObject);
+    procedure btnNovoClick(Sender: TObject);
+    procedure btnEditarClick(Sender: TObject);
+    procedure btnCancelarClick(Sender: TObject);
+    procedure btnSalvarClick(Sender: TObject);
+    procedure edCustoKeyPress(Sender: TObject; var Key: Char);
+    procedure edCustoExit(Sender: TObject);
+    procedure mmDescricaoEnter(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure btnExcluirClick(Sender: TObject);
+  private
+    FProduto: TProduto;
+    FQuery: TFdQuerySqlite;
+    { Private declarations }
+    procedure MudarAba(Index : Integer);
+    procedure PreencheEdicaoProduto;
+    procedure SetValues;
+    function GetProduto: TProduto;
+    procedure ListaProdutos;
+    function GetQuery: TFdQuerySqlite;
+    property Produto : TProduto read GetProduto write FProduto;
+    property Query : TFdQuerySqlite read GetQuery write FQuery;
+    procedure LimpaCampos;
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmCadastroProdutos: TFrmCadastroProdutos;
+
+implementation
+
+{$R *.dfm}
+
+procedure TFrmCadastroProdutos.MudarAba(Index: Integer);
+begin
+  nbPrincipal.PageIndex := Index;
+  if (Index=0) then
+  begin
+    ListaProdutos;
+    LimpaCampos;
+  end;
+end;
+
+procedure TFrmCadastroProdutos.PreencheEdicaoProduto;
+begin
+  edId.Text := IntToStr(Produto.Id);
+  edNome.Text := Produto.Nome;
+  edCusto.Text := FormatFloat('#,##0.00',Produto.Custo);
+  edVenda.Text := FormatFloat('#,##0.00',Produto.Venda);
+  mmDescricao.Lines.Text := Produto.Descricao;
+end;
+
+procedure TFrmCadastroProdutos.SetValues;
+begin
+  Produto.Nome := edNome.Text;
+  Produto.Descricao := Trim(mmDescricao.Lines.Text);
+  Produto.Custo := StrToCurr(edCusto.Text);
+end;
+
+procedure TFrmCadastroProdutos.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+   FreeAndNil(FrmCadastroProdutos);
+end;
+
+procedure TFrmCadastroProdutos.FormCreate(Sender: TObject);
+begin
+  Self.Left:=Trunc((Screen.Width-Width)  / 2);
+  Self.Top:=Trunc((Screen.Height-Height) / 2);
+  MudarAba(0);
+end;
+
+procedure TFrmCadastroProdutos.FormDestroy(Sender: TObject);
+begin
+  if Assigned(FProduto) then
+    FreeAndNil(FProduto);
+end;
+
+procedure TFrmCadastroProdutos.FormShow(Sender: TObject);
+begin
+  ListaProdutos;
+end;
+
+function TFrmCadastroProdutos.GetProduto: TProduto;
+begin
+  if Not Assigned(FProduto) then
+    FProduto := TProduto.Create;
+  Result := FProduto;
+end;
+
+function TFrmCadastroProdutos.GetQuery: TFdQuerySqlite;
+begin
+  if (not Assigned(FQuery)) then
+    FQuery := TFdQuerySqlite.Create;
+  Result := FQuery;
+end;
+
+procedure TFrmCadastroProdutos.LimpaCampos;
+begin
+  edId.Text := '';
+  edNome.Text := '';
+  mmDescricao.Lines.Text := '';
+  edCusto.Text := '';
+  edVenda.Text := '';
+end;
+
+procedure TFrmCadastroProdutos.ListaProdutos;
+begin
+  cdsProdutos.EmptyDataSet;
+  if (Query.OpenSQLQuery('Select * From Produtos Where Custo>0')) then
+  begin
+    while not Query.eof do
+    begin
+      cdsProdutos.Append;
+      cdsProdutosId.AsInteger := Query.FieldInteger('Id');
+      cdsProdutosNome.AsString := Query.FieldString('Nome');
+      cdsProdutosDescricao.AsString := Query.FieldString('Descricao');
+      cdsProdutosCusto.AsCurrency := Query.FdQuery.FieldByName('Custo').AsCurrency;
+      cdsProdutosVenda.AsCurrency := Query.FieldCurrency('Venda');
+      cdsProdutos.Post;
+      Query.Next;
+    end;
+    cdsProdutos.First;
+  end;
+end;
+
+procedure TFrmCadastroProdutos.mmDescricaoEnter(Sender: TObject);
+begin
+  mmDescricao.SelStart := Length(Trim(mmDescricao.Lines.Text));
+end;
+
+procedure TFrmCadastroProdutos.btnCancelarClick(Sender: TObject);
+begin
+  MudarAba(0);
+end;
+
+procedure TFrmCadastroProdutos.btnEditarClick(Sender: TObject);
+begin
+  if (cdsProdutos.RecordCount>0) then
+  begin
+    Produto.Id := cdsProdutosId.AsInteger;
+    Produto.Nome := cdsProdutosNome.AsString;
+    Produto.Descricao := cdsProdutosDescricao.AsString;
+    Produto.Custo := cdsProdutosCusto.AsCurrency;
+    Produto.Venda := cdsProdutosVenda.AsCurrency;
+    Produto.Comando := tcUpdate;
+    PreencheEdicaoProduto;
+    MudarAba(1);
+  end;
+
+end;
+
+procedure TFrmCadastroProdutos.btnExcluirClick(Sender: TObject);
+begin
+  if (cdsProdutos.RecordCount>0) then
+  begin
+    if (MessageDlg(Format('Confirma excluir o item %d-%s?',[cdsProdutosId.AsInteger,CdsProdutosNome.AsString]),
+                   mtConfirmation,[mbNo,mbYes],0)=mrYes ) then
+    begin
+      try
+        try
+          Produto.Id := cdsProdutosId.AsInteger;
+          Produto.Comando := tcDelete;
+          Produto.Persist;
+        except on e:exception do
+          ShowMessage('Ocorreu um erro ao excluir o produto');
+        end;
+      finally
+
+      end;
+    end;
+
+  end;
+end;
+
+procedure TFrmCadastroProdutos.btnNovoClick(Sender: TObject);
+begin
+  MudarAba(1);
+  Produto.Inicia;
+end;
+
+procedure TFrmCadastroProdutos.btnSalvarClick(Sender: TObject);
+begin
+  //Salvar Produto
+  SetValues;
+  Produto.Persist;
+  MudarAba(0);
+end;
+
+procedure TFrmCadastroProdutos.edCustoExit(Sender: TObject);
+begin
+  if (edCusto.Text<>'') then
+    edCusto.Text := FormatFloat('#,##0.00',StrToCurr(edCusto.Text))
+  else
+    edCusto.Text := FormatFloat('#,##0.00',0)
+end;
+
+procedure TFrmCadastroProdutos.edCustoKeyPress(Sender: TObject; var Key: Char);
+begin
+  if not (Key in ['0'..'9',#13,#44,#8]) then
+  begin
+     Key := #0;
+  end
+
+
+end;
+
+end.

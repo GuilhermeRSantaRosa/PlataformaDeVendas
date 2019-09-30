@@ -1,0 +1,59 @@
+unit uItemVenda;
+
+interface
+
+uses
+  Classes;
+
+type
+  TItemVenda = class(TCollectionItem)
+  private
+    FVenda: Currency;
+    FNome: String;
+    FIdproduto : Integer;
+  public
+    constructor Create(ACollection : TCollection);
+    property IdProduto:Integer read FIdproduto  write FIdproduto;
+    property Nome:String read FNome write FNome;
+    property Venda:Currency read FVenda write FVenda;
+  end;
+
+  TItensVenda = class(TCollection)
+  private
+  protected
+    function GetItems(Index: Integer): TItemVenda;
+  public
+    constructor Create;
+    function Add : TItemVenda;
+    property Items[Index:Integer ] : TItemVenda read GetItems;default;
+  end;
+
+implementation
+
+{ TItensVenda }
+
+function TItensVenda.Add: TItemVenda;
+begin
+  Result := TItemVenda.Create(Self);
+end;
+
+constructor TItensVenda.Create;
+begin
+  inherited Create(TItemVenda);
+end;
+
+function TItensVenda.GetItems(Index: Integer): TItemVenda;
+begin
+  Result := TItemVenda(inherited GetItem(Index));
+end;
+
+
+
+{ TItemVenda }
+
+constructor TItemVenda.Create(ACollection: TCollection);
+begin
+  inherited Create(ACollection);
+end;
+
+end.

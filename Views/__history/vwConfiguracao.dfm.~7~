@@ -1,0 +1,106 @@
+object FrmConfiguracao: TFrmConfiguracao
+  Left = 0
+  Top = 0
+  Caption = 'Configura'#231'ao'
+  ClientHeight = 197
+  ClientWidth = 311
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Label2: TLabel
+    Left = 8
+    Top = 53
+    Width = 79
+    Height = 16
+    Caption = 'Despesas Totais'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Trebuchet MS'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label3: TLabel
+    Left = 160
+    Top = 54
+    Width = 86
+    Height = 16
+    Caption = 'Margem de Lucro'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Trebuchet MS'
+    Font.Style = []
+    ParentFont = False
+  end
+  object pnTop: TPanel
+    Left = 0
+    Top = 0
+    Width = 311
+    Height = 41
+    Align = alTop
+    Alignment = taLeftJustify
+    BevelOuter = bvNone
+    Color = 11628805
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -20
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentBackground = False
+    ParentFont = False
+    TabOrder = 0
+    ExplicitWidth = 477
+    object Label1: TLabel
+      AlignWithMargins = True
+      Left = 3
+      Top = 3
+      Width = 119
+      Height = 35
+      Align = alLeft
+      Caption = 'Configura'#231#227'o'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = -20
+      Font.Name = 'Trebuchet MS'
+      Font.Style = []
+      ParentFont = False
+      Layout = tlCenter
+      ExplicitHeight = 26
+    end
+  end
+  object edDespesasTotais: TEdit
+    Left = 8
+    Top = 72
+    Width = 121
+    Height = 24
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Trebuchet MS'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 1
+  end
+  object edMargemLucro: TEdit
+    Left = 160
+    Top = 72
+    Width = 121
+    Height = 24
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Trebuchet MS'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 2
+  end
+end

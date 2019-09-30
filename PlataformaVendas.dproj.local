@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2019/04/03 21:59:02.000.593,=C:\Users\user\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2019/09/28 13:43:07.000.330,=C:\Users\user\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2019/09/28 13:43:38.000.729,C:\Users\user\Documents\Embarcadero\Studio\Projects\Unit1.dfm=C:\Users\user\Documents\Embarcadero\Studio\Projects\uPrincipal.dfm</Transaction>
+    <Transaction>2019/09/28 13:43:38.000.729,C:\Users\user\Documents\Embarcadero\Studio\Projects\Unit1.pas=C:\Users\user\Documents\Embarcadero\Studio\Projects\uPrincipal.pas</Transaction>
+    <Transaction>2019/09/28 13:44:13.000.691,C:\Users\user\Documents\Embarcadero\Studio\Projects\uPrincipal.pas=</Transaction>
+    <Transaction>2019/09/28 13:44:55.000.501,C:\Users\user\Documents\Embarcadero\Studio\Projects\Project1.dproj=C:\Users\user\Documents\Embarcadero\Studio\Projects\TesteDesenvolvedorDelphi.dproj</Transaction>
+    <Transaction>2019/09/28 13:45:00.000.077,=C:\Users\user\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2019/09/28 13:45:37.000.644,C:\Users\user\Documents\Embarcadero\Studio\Projects\Unit1.dfm=C:\Projetos\TesteDesenvolvedorDelphi\uPrincipal.dfm</Transaction>
+    <Transaction>2019/09/28 13:45:37.000.644,C:\Users\user\Documents\Embarcadero\Studio\Projects\Unit1.pas=C:\Projetos\TesteDesenvolvedorDelphi\uPrincipal.pas</Transaction>
+    <Transaction>2019/09/28 13:45:42.000.440,C:\Users\user\Documents\Embarcadero\Studio\Projects\TesteDesenvolvedorDelphi.dproj=C:\Projetos\TesteDesenvolvedorDelphi\TesteDesenvolvedorDelphi.dproj</Transaction>
+    <Transaction>2019/09/28 13:56:09.000.720,=C:\Projetos\TesteDesenvolvedorDelphi\Unit2.pas</Transaction>
+    <Transaction>2019/09/28 13:56:16.000.171,C:\Projetos\TesteDesenvolvedorDelphi\Unit2.pas=C:\Projetos\TesteDesenvolvedorDelphi\Views\uVenda.pas</Transaction>
+    <Transaction>2019/09/28 13:56:16.000.171,C:\Projetos\TesteDesenvolvedorDelphi\Unit2.dfm=C:\Projetos\TesteDesenvolvedorDelphi\Views\uVenda.dfm</Transaction>
+    <Transaction>2019/09/28 14:00:07.000.261,C:\Projetos\TesteDesenvolvedorDelphi\TesteDesenvolvedorDelphi.dproj=C:\Projetos\TesteDesenvolvedorDelphi\PlataformaVendas.dproj</Transaction>
+    <Transaction>2019/09/28 14:21:36.000.503,=C:\Projetos\TesteDesenvolvedorDelphi\Unit1.pas</Transaction>
+    <Transaction>2019/09/28 14:21:45.000.968,C:\Projetos\TesteDesenvolvedorDelphi\Unit1.dfm=C:\Projetos\TesteDesenvolvedorDelphi\Views\uCadastroProduto.dfm</Transaction>
+    <Transaction>2019/09/28 14:21:45.000.968,C:\Projetos\TesteDesenvolvedorDelphi\Unit1.pas=C:\Projetos\TesteDesenvolvedorDelphi\Views\uCadastroProduto.pas</Transaction>
+    <Transaction>2019/09/28 15:36:19.000.356,=C:\Projetos\TesteDesenvolvedorDelphi\Classes\Connection.pas</Transaction>
+    <Transaction>2019/09/28 15:36:19.000.361,=C:\Projetos\TesteDesenvolvedorDelphi\Classes\FdQuery.pas</Transaction>
+    <Transaction>2019/09/28 15:39:10.000.301,=C:\Projetos\TesteDesenvolvedorDelphi\Unit1.pas</Transaction>
+    <Transaction>2019/09/28 16:03:10.000.569,=C:\Projetos\TesteDesenvolvedorDelphi\Unit1.pas</Transaction>
+    <Transaction>2019/09/28 18:44:22.000.609,=C:\Projetos\TesteDesenvolvedorDelphi\Unit1.pas</Transaction>
+    <Transaction>2019/09/28 18:44:45.000.453,C:\Projetos\TesteDesenvolvedorDelphi\Classes\Produto.pas=C:\Projetos\TesteDesenvolvedorDelphi\Unit1.pas</Transaction>
+    <Transaction>2019/09/28 18:54:29.000.229,=C:\Projetos\TesteDesenvolvedorDelphi\Unit1.pas</Transaction>
+    <Transaction>2019/09/28 18:55:09.000.693,C:\Projetos\TesteDesenvolvedorDelphi\Classes\uDatabase.pas=C:\Projetos\TesteDesenvolvedorDelphi\Unit1.pas</Transaction>
+    <Transaction>2019/09/28 19:15:19.000.776,C:\Projetos\TesteDesenvolvedorDelphi\Classes\uProduto.pas=C:\Projetos\TesteDesenvolvedorDelphi\Classes\Produto.pas</Transaction>
+    <Transaction>2019/09/28 19:26:07.000.486,C:\Projetos\TesteDesenvolvedorDelphi\Classes\Connection.pas=</Transaction>
+    <Transaction>2019/09/28 19:26:32.000.030,=C:\Projetos\TesteDesenvolvedorDelphi\Unit1.pas</Transaction>
+    <Transaction>2019/09/28 19:27:11.000.709,C:\Projetos\TesteDesenvolvedorDelphi\uDataModule.pas=C:\Projetos\TesteDesenvolvedorDelphi\Unit1.pas</Transaction>
+    <Transaction>2019/09/28 19:27:11.000.709,C:\Projetos\TesteDesenvolvedorDelphi\uDataModule.dfm=C:\Projetos\TesteDesenvolvedorDelphi\Unit1.dfm</Transaction>
+    <Transaction>2019/09/28 19:34:14.000.403,=C:\Projetos\TesteDesenvolvedorDelphi\Unit1.pas</Transaction>
+    <Transaction>2019/09/28 19:34:23.000.532,C:\Projetos\TesteDesenvolvedorDelphi\Classes\uUtils.pas=C:\Projetos\TesteDesenvolvedorDelphi\Unit1.pas</Transaction>
+    <Transaction>2019/09/29 10:50:54.000.500,=C:\Projetos\TesteDesenvolvedorDelphi\Unit1.pas</Transaction>
+    <Transaction>2019/09/29 10:51:03.000.123,C:\Projetos\TesteDesenvolvedorDelphi\Unit1.dfm=C:\Projetos\TesteDesenvolvedorDelphi\Views\uConfiguracao.dfm</Transaction>
+    <Transaction>2019/09/29 10:51:03.000.123,C:\Projetos\TesteDesenvolvedorDelphi\Unit1.pas=C:\Projetos\TesteDesenvolvedorDelphi\Views\uConfiguracao.pas</Transaction>
+    <Transaction>2019/09/29 10:52:03.000.236,=C:\Projetos\TesteDesenvolvedorDelphi\Unit1.pas</Transaction>
+    <Transaction>2019/09/29 10:53:04.000.284,C:\Projetos\TesteDesenvolvedorDelphi\Views\uCadastroProduto.dfm=C:\Projetos\TesteDesenvolvedorDelphi\Views\vwCadastroProduto.dfm</Transaction>
+    <Transaction>2019/09/29 10:53:04.000.284,C:\Projetos\TesteDesenvolvedorDelphi\Views\uCadastroProduto.pas=C:\Projetos\TesteDesenvolvedorDelphi\Views\vwCadastroProduto.pas</Transaction>
+    <Transaction>2019/09/29 10:53:06.000.949,C:\Projetos\TesteDesenvolvedorDelphi\Views\uConfiguracao.dfm=C:\Projetos\TesteDesenvolvedorDelphi\Views\vwConfiguracao.dfm</Transaction>
+    <Transaction>2019/09/29 10:53:06.000.949,C:\Projetos\TesteDesenvolvedorDelphi\Views\uConfiguracao.pas=C:\Projetos\TesteDesenvolvedorDelphi\Views\vwConfiguracao.pas</Transaction>
+    <Transaction>2019/09/29 10:53:10.000.180,C:\Projetos\TesteDesenvolvedorDelphi\Views\uVenda.dfm=C:\Projetos\TesteDesenvolvedorDelphi\Views\vwVenda.dfm</Transaction>
+    <Transaction>2019/09/29 10:53:10.000.180,C:\Projetos\TesteDesenvolvedorDelphi\Views\uVenda.pas=C:\Projetos\TesteDesenvolvedorDelphi\Views\vwVenda.pas</Transaction>
+    <Transaction>2019/09/29 11:22:15.000.872,=C:\Projetos\TesteDesenvolvedorDelphi\Unit1.pas</Transaction>
+    <Transaction>2019/09/29 11:22:22.000.104,C:\Projetos\TesteDesenvolvedorDelphi\Classes\uConfiguracao.pas=C:\Projetos\TesteDesenvolvedorDelphi\Unit1.pas</Transaction>
+    <Transaction>2019/09/29 14:13:16.000.356,=C:\Projetos\TesteDesenvolvedorDelphi\Unit1.pas</Transaction>
+    <Transaction>2019/09/29 14:13:23.000.168,C:\Projetos\TesteDesenvolvedorDelphi\Unit1.pas=C:\Projetos\TesteDesenvolvedorDelphi\Classes\uParametros.pas</Transaction>
+    <Transaction>2019/09/29 16:30:44.000.041,=C:\Projetos\TesteDesenvolvedorDelphi\Unit1.pas</Transaction>
+    <Transaction>2019/09/29 16:30:54.000.603,C:\Projetos\TesteDesenvolvedorDelphi\Classes\uItemVenda.pas=C:\Projetos\TesteDesenvolvedorDelphi\Unit1.pas</Transaction>
+    <Transaction>2019/09/29 16:37:40.000.806,=C:\Projetos\TesteDesenvolvedorDelphi\Unit1.pas</Transaction>
+    <Transaction>2019/09/29 16:37:46.000.915,C:\Projetos\TesteDesenvolvedorDelphi\Classes\uVenda.pas=C:\Projetos\TesteDesenvolvedorDelphi\Unit1.pas</Transaction>
+  </Transactions>
+	<ActiveMobileDevice>
+		<NoProfile iOSSimulator="iPhone5" Android="Teste"/>
+	</ActiveMobileDevice>
+</BorlandProject>

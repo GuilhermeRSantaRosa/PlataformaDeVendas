@@ -1,0 +1,86 @@
+unit uUtils;
+
+interface
+
+uses FdQuery, uDatabase;
+
+function ValorSql(AValor : Currency) : String;
+function SomenteNumeros(AValor : String) : String;
+procedure RecalculaValorVendaProdutos;
+
+implementation
+
+uses
+  System.SysUtils,uParametros,uProduto;
+
+function ValorSql(AValor : Currency) : String;
+var aTemp : String;
+begin
+  aTemp :=  FormatFloat('#,##0.00',AValor);
+  aTemp := StringReplace(aTemp,'.','',[rfReplaceAll]);
+  Result := StringReplace(aTemp,',','.',[rfReplaceAll]);
+end;
+
+function SomenteNumeros(AValor : String) : String;
+var Loop : Integer;
+begin
+  Result := '';
+  for Loop := 0 to Length(AValor) do
+  begin
+    if (AValor[Loop] in ['0'..'9']) then
+      Result := Result + AValor[Loop];
+  end;
+end;
+
+procedure RecalculaValorVendaProdutos;
+var Query : TFdQuerySqlite;
+    vQtdeProdutos,Loop : Integer;
+    vValorRateio : Currency;
+    Prod : TProduto;
+    vFiltro : String;
+    Produtos : TArray<TProduto>;
+begin
+  Loop := 0;
+  vValorRateio := 0;
+  vQtdeProdutos := 0;
+  vFiltro := '';
+  if AIdProduto>0 then
+    vFiltro := ' Where Id= '+IntToStr(AIdProduto);
+
+  try
+    Query := TFdQuerySqlite.Create;
+    if (Query.OpenSQLQuery('Select Count(*) as Qtde From Produtos')) then
+    begin
+      vQtdeProdutos := Query.FieldInteger('Qtde');
+      SetLength(Produtos,vQtdeProdutos);
+      vValorRateio := TParametros.ValorDespesas / vQtdeProdutos;
+      if (Query.OpenSQLQuery('Select * From Produtos ' + vFiltro)) then
+      begin
+        while not Query.eof do
+        begin
+          Prod := TProduto.Create;
+          Prod.Id := Query.FieldInteger('Id');
+          Prod.Nome := Query.FieldString('Nome');
+          Prod.Descricao := Query.FieldString('Descricao');
+          Prod.Custo := Query.FieldCurrency('Custo');
+          Prod.Venda := Prod.Custo + vValorRateio;
+          Prod.Venda := Prod.Venda * (1 + TParametros.MargemLucro/100);
+          Prod.Comando  := tcUpdate;
+          Produtos[Loop]  := Prod;
+          Inc(Loop);
+          Query.Next;
+        end;
+      end;
+      for Loop := Low(Produtos) to High(Produtos) do
+      begin
+        Prod := Produtos[Loop];
+        Prod.Persist;
+      end;
+
+    end;
+  finally
+    FreeAndNil(Query);
+  end;
+end;
+
+end.

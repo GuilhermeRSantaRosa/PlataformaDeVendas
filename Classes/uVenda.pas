@@ -1,0 +1,136 @@
+unit uVenda;
+
+interface
+
+uses
+  uItemVenda,uDatabase, FdQuery, uUtils;
+
+type
+  TVenda = class(TDatabaseObject)
+  private
+    FHora: TTime;
+    FItens: TItensVenda;
+    FTotal: Currency;
+    FId: Integer;
+    FData: TDate;
+    function GetItens: TItensVenda;
+    procedure GravarProdutos;
+  protected
+    function InsertCommand : WideString;override;
+    function GetNextId:Integer;override;
+  public
+    property Id : Integer read FId write FId;
+    property Data : TDate read FData write FData;
+    property Hora : TTime read FHora write FHora;
+    property Total : Currency read FTotal write FTotal;
+    property Itens : TItensVenda read GetItens write FItens;
+    procedure Recalcula;
+    procedure Persist;override;
+    procedure Iniciar;
+    function GetByIdSequencia (IdSeq : integer): TItemVenda;
+  end;
+
+implementation
+
+uses
+  System.SysUtils, Vcl.Dialogs;
+
+{ TVenda }
+
+procedure TVenda.GravarProdutos;
+var
+  Loop: Integer;
+  Ite : TItemVenda;
+begin
+  for Loop := 0 to Self.Itens.Count - 1  do
+  begin
+    Ite := Self.Itens[Loop];
+    Ite.IdSequencia := Loop + 1;
+    Query.ExecuteDirect(Format('Insert Into VendaItens (IdVenda,IdSequencia,IdProduto,Quantidade,ValorUnitario,Total) ' +
+                               'Values (%d,%d,%d,%d,%s,%s)',
+                               [Self.Id,Ite.IdSequencia,Ite.IdProduto,ite.Quantidade,ValorSql(Ite.ValorUnitario),
+                               ValorSql(Ite.Total)]));
+  end;
+end;
+
+procedure TVenda.Iniciar;
+begin
+  Self.Id := 0;
+  Self.FItens := nil;
+  Self.Total := 0;
+  self.Data := 0;
+  Self.Hora := 0;
+end;
+
+function TVenda.InsertCommand: WideString;
+begin
+  Self.Id := GetNextId;
+  Self.Data := Date;
+  Self.hora := Time;
+  Result := Format('Insert Into Venda (Id,Data,Hora,Total) Values (%d,%s,%s,%s)',
+            [Self.Id,DataSql(Self.Data),HoraSql(Self.Hora),ValorSql(Self.Total)]);
+end;
+
+function TVenda.GetNextId: Integer;
+var QueryAux : TFdQuerySqlite;
+begin
+  Result := 1;
+  try
+    QueryAux := TFdQuerySqlite.Create;
+    if (QueryAux.OpenSQLQuery('Select Coalesce(Max(id),0) as Id From Venda')) then
+      Result := QueryAux.FieldInteger('Id') + 1;
+  finally
+    FreeAndNil(QueryAux);
+  end;
+end;
+
+procedure TVenda.Persist;
+begin
+  try
+    Query.FdQuery.Connection.StartTransaction;
+    inherited;
+    GravarProdutos;
+    Query.FdQuery.Connection.Commit;
+  except on e:exception do
+    begin
+      Query.FdQuery.Connection.Rollback;
+      showMessage('Ocorreu um erro ao gravar a venda ' + sLineBreak + e.Message);
+    end;
+  end;
+end;
+
+procedure TVenda.Recalcula;
+var Item : TItemVenda;
+    Loop: Integer;
+begin
+  Self.Total := 0;
+  for Loop := 0 to Self.Itens.Count -1 do
+  begin
+    Item := Self.Itens[Loop];
+    Self.Total := Self.Total + Item.Total;
+  end;
+end;
+
+function TVenda.GetByIdSequencia(IdSeq : integer): TItemVenda;
+var Item : TItemVenda;
+    Loop: Integer;
+begin
+  for Loop := 0 to Self.Itens.Count -1 do
+  begin
+    Item := Self.Itens[Loop];
+    if (Item.IdSequencia=IdSeq) then
+    begin
+      Result := Item;
+      Exit;
+    end;
+  end;
+end;
+
+function TVenda.GetItens: TItensVenda;
+begin
+  if (not Assigned(FItens)) then
+    FItens := TItensVenda.Create;
+  Result := FItens;
+end;
+
+end.

@@ -1,0 +1,65 @@
+unit uVenda;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Data.DB,
+  Datasnap.DBClient, Vcl.Grids, Vcl.DBGrids, Vcl.Buttons;
+
+type
+  TFrmVenda = class(TForm)
+    pnTop: TPanel;
+    Label1: TLabel;
+    pnListaProdutos: TPanel;
+    DBGrid1: TDBGrid;
+    cdsProdutos: TClientDataSet;
+    DataSource1: TDataSource;
+    cdsProdutosIdProduto: TIntegerField;
+    cdsProdutosNome: TStringField;
+    cdsProdutosDescricao: TStringField;
+    cdsProdutosCusto: TCurrencyField;
+    cdsProdutosVenda: TCurrencyField;
+    pnBottom: TPanel;
+    pnTotais: TPanel;
+    Label2: TLabel;
+    SpeedButton1: TSpeedButton;
+    procedure FormResize(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+  private
+    { Private declarations }
+    procedure RecalculaGridProdutos;
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmVenda: TFrmVenda;
+
+implementation
+
+{$R *.dfm}
+
+{ TFrmVenda }
+
+procedure TFrmVenda.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Action := caFree;
+end;
+
+procedure TFrmVenda.FormResize(Sender: TObject);
+begin
+  RecalculaGridProdutos;
+end;
+
+procedure TFrmVenda.RecalculaGridProdutos;
+var vWidth : Integer;
+begin
+  vWidth := Self.Width;
+  DBGrid1.Columns[0].Width := Trunc(5/100 * vWidth);
+  DBGrid1.Columns[1].Width := Trunc(30/100 * vWidth);
+  DbGrid1.Columns[2].Width := Trunc(50/100 * vWidth);
+  DBGrid1.Columns[3].Width := Trunc(10/100 * vWidth);
+end;
+
+end.

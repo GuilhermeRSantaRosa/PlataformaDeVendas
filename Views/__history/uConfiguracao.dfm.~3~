@@ -1,0 +1,53 @@
+object FrmConfiguracao: TFrmConfiguracao
+  Left = 0
+  Top = 0
+  Caption = 'Configura'#231'ao'
+  ClientHeight = 201
+  ClientWidth = 447
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object pnTop: TPanel
+    Left = 0
+    Top = 0
+    Width = 447
+    Height = 41
+    Align = alTop
+    Alignment = taLeftJustify
+    BevelOuter = bvNone
+    Color = 11628805
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -20
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentBackground = False
+    ParentFont = False
+    TabOrder = 0
+    ExplicitLeft = -320
+    ExplicitWidth = 767
+    object Label1: TLabel
+      AlignWithMargins = True
+      Left = 3
+      Top = 3
+      Width = 119
+      Height = 35
+      Align = alLeft
+      Caption = 'Configura'#231#227'o'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = -20
+      Font.Name = 'Trebuchet MS'
+      Font.Style = []
+      ParentFont = False
+      Layout = tlCenter
+      ExplicitHeight = 26
+    end
+  end
+end

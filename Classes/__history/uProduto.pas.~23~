@@ -1,0 +1,123 @@
+unit uProduto;
+
+interface
+
+uses FdQuery, System.SysUtils,uDataBase, uUtils;
+
+type
+
+  TProduto = class(TDatabaseObject)
+    private
+      FVenda: Currency;
+      FDescricao: String;
+      FId: Integer;
+      FNome: String;
+      FCusto: Currency;
+    FQUery: TFdQuerySqlite;
+    function GetQuery: TFdQuerySqlite;
+
+    protected
+      function InsertCommand : WideString;override;
+      function UpdateCommand : WideString;override;
+      function DeleteCommand : WideString;override;
+      function GetNextId: Integer;override;
+      function Load(AId:Integer) : Boolean;override;
+      procedure Persist;override;
+
+    public
+      destructor destroy;override;
+      procedure Inicia;
+      property Id:Integer read FId write FId;
+      property Nome:String read FNome write FNome;
+      property Descricao:String read FDescricao write FDescricao;
+      property Custo:Currency read FCusto write FCusto;
+      property Venda:Currency read FVenda write FVenda;
+      property Query : TFdQuerySqlite read GetQuery write FQUery;
+      procedure AtualizaPrecoVenda;
+
+  end;
+
+implementation
+
+{ TProduto }
+
+procedure TProduto.AtualizaPrecoVenda;
+begin
+  Query.ExecuteDirect(Format('Update Produtos Set PrecoVenda=%s Where Id=%d',[ValorSql(Self.Venda),Self.Id]));
+end;
+
+function TProduto.DeleteCommand: WideString;
+begin
+  Result := Format('Delete From Produtos Where Id=%d',[Self.Id]);
+end;
+
+destructor TProduto.destroy;
+begin
+  if Assigned(FQuery) then
+    FreeAndNil(FQuery);
+  inherited;
+end;
+
+function TProduto.GetNextId: Integer;
+begin
+  Result := 1;
+  if (Query.OpenSQLQuery('Select Coalesce(Max(Id),0) as Id From Produtos')) then
+    Result := Query.FieldInteger('Id') + 1;
+end;
+
+function TProduto.GetQuery: TFdQuerySqlite;
+begin
+  if (not Assigned(FQuery)) then
+    FQuery := TFdQuerySqlite.Create;
+  Result := FQUery;
+end;
+
+procedure TProduto.Inicia;
+begin
+  Self.Id := 0;
+  Self.Nome := '';
+  Self.Descricao := '';
+  Self.Custo := 0;
+  Self.Venda := 0;
+  Self.Comando := tcInsert;
+end;
+
+function TProduto.InsertCommand: WideString;
+begin
+  Self.Id := GetNextId;
+  Result := Format('Insert Into Produtos (Id,Nome,Descricao,Custo,Venda) Values (%d,%s,%s,%s,%s)',
+            [Self.Id,QuotedStr(Self.Nome),QuotedStr(Self.Descricao),
+            ValorSqL(Self.Custo),ValorSql(Self.Venda)]);
+end;
+
+function TProduto.Load(AId: Integer): Boolean;
+begin
+  Result := False;
+  if (Query.OpenSQLQuery(Format('Select * From Produtos Where Id=%d',[AId]))) then
+  begin
+    Self.Nome := Query.FieldString('Nome');
+    Self.Descricao := Query.FieldString('Descricao');
+    Self.Custo := Query.FieldCurrency('Custo');
+    Self.Venda := Query.FieldCurrency('Venda');
+  end;
+end;
+
+
+
+
+procedure TProduto.Persist;
+begin
+  inherited;
+  RecalculaValorVendaProdutos;
+end;
+
+function TProduto.UpdateCommand: WideString;
+begin
+  Result := Format('Update Produtos Set Nome=%s,Descricao=%s,Custo=%s,Venda=%s Where Id=%d',
+            [QuotedStr(Self.Nome),QuotedStr(Self.Descricao),
+            ValorSqL(Self.Custo),
+            ValorSqL(Self.Venda),
+            Self.Id ]);
+end;
+
+end.
